@@ -1,0 +1,851 @@
+/* ═══════════════════════════════════════════════════════════
+   Yi Zhou, Ph.D. — SFSU Finance  |  styles.css
+   Framework: Tailwind CSS (via CDN) + custom overrides
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── CSS Custom Properties (Design Tokens) ── */
+:root {
+  --navy:       #1a3a5c;
+  --navy-dark:  #0d2440;
+  --navy-mid:   #1e4570;
+  --gold:       #b8860b;
+  --gold-light: #1a3a5c;
+  --cream:      #1a2a3a;
+  --ink:        #0d2440;
+  --muted:      #4a6a8a;
+  --border:     rgba(26,58,92,0.2);
+  --glass:      rgba(26,58,92,0.04);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  background: #ffffff;
+  color: var(--cream);
+  min-height: 100vh;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* ── Currency Ticker Strip (NEW — Data/API #2: Frankfurter) ── */
+.ticker-strip {
+  background: rgba(13,36,64,0.98);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 0;
+  overflow: hidden;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  position: relative;
+}
+
+.ticker-inner {
+  display: inline-flex;
+  gap: 48px;
+  animation: tickerScroll 30s linear infinite;
+  padding-left: 100%;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ticker-label { color: #b8860b; font-weight: bold; }
+.ticker-up   { color: #4ade80; }
+.ticker-down { color: #f87171; }
+.ticker-neutral { color: #a8c4e0; }
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Header & Nav ── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 48px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(13,36,64,0.97);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-title {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #b8860b;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+nav button {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #eef4fb;
+  padding: 9px 20px;
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+nav button:hover { border-color: rgba(184,134,11,0.4); color: #b8860b; }
+nav button.active { border-color: #b8860b; color: #b8860b; background: rgba(184,134,11,0.08); }
+
+/* ── Main & Pages ── */
+main { min-height: calc(100vh - 64px); }
+
+.page { display: none; padding: 64px 48px; max-width: 960px; margin: 0 auto; animation: fadeUp 0.5s ease both; }
+.page.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Typography ── */
+h1 {
+  font-size: clamp(32px, 5vw, 60px);
+  font-weight: 600;
+  color: var(--gold-light);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 15.6px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 40px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 { font-size: 28.6px; color: var(--gold-light); margin-bottom: 8px; font-weight: 600; }
+p  { color: var(--cream); margin-bottom: 18px; }
+a  { color: var(--gold); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; display: block; }
+
+/* ── Page Painting Backgrounds ── */
+#page-bio {
+  position: relative;
+}
+#page-bio::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('Mona-Lisa-oil-wood-panel-Leonardo-da.jpg') center center / cover no-repeat;
+  opacity: 0.20;
+  pointer-events: none;
+  z-index: 0;
+}
+#page-bio > * { position: relative; z-index: 1; }
+
+#page-publications {
+  position: relative;
+}
+#page-publications::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('Lady-Ermine-oil-panel-Leonardo-da-Vinci.jpg') center center / cover no-repeat;
+  opacity: 0.20;
+  pointer-events: none;
+  z-index: 0;
+}
+#page-publications > * { position: relative; z-index: 1; }
+
+#page-awards {
+  position: relative;
+}
+#page-awards::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('Head-Woman-oil-earth-poplar-wood-lead.jpg') center center / cover no-repeat;
+  opacity: 0.20;
+  pointer-events: none;
+  z-index: 0;
+}
+#page-awards > * { position: relative; z-index: 1; }
+
+#page-service {
+  position: relative;
+}
+#page-service::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('Ginevra-de-Benci-oil-panel-Leonardo-da.jpg') center center / cover no-repeat;
+  opacity: 0.20;
+  pointer-events: none;
+  z-index: 0;
+}
+#page-service > * { position: relative; z-index: 1; }
+
+#page-markets {
+  position: relative;
+}
+#page-markets::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('The-Virgin-of-the-Rocks-Leonardo-da-Vinci-circa-1483-1494.jpg') center center / cover no-repeat;
+  opacity: 0.20;
+  pointer-events: none;
+  z-index: 0;
+}
+#page-markets > * { position: relative; z-index: 1; }
+
+#page-contact {
+  position: relative;
+}
+#page-contact::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('Screenshot.png') center center / cover no-repeat;
+  opacity: 0.20;
+  pointer-events: none;
+  z-index: 0;
+}
+#page-contact > * { position: relative; z-index: 1; }
+
+/* Each active page sets the page's own background color */
+.page.active {
+  background: white;
+  min-height: 100vh;
+}
+
+/* ── Biography Page ── */
+.bio-hero {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+.bio-photo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+  flex-shrink: 0;
+  box-shadow: 8px 8px 0 var(--gold);
+}
+
+.bio-intro h1 { margin-bottom: 4px; font-size: clamp(32px, 4.7vw, 54px); font-weight: 700; }
+.bio-intro p { margin-bottom: 1em; }
+.bio-intro .role {
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+  font-size: 20px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.credential-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.credential-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  padding: 20px;
+}
+
+.credential-card .label {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* ── Publications Page ── */
+.pub-list { list-style: none; }
+
+.pub-item {
+  border-bottom: 1px solid var(--border);
+  padding: 28px 0;
+}
+
+.pub-item .journal {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.pub-item .title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.pub-item .authors {
+  font-size: 15px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.pub-title-link {
+  color: var(--cream);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.pub-title-link:hover {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+.pub-item .year {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--gold);
+  float: right;
+}
+
+/* ── Awards Page ── */
+.awards-list { display: flex; flex-direction: column; gap: 0; }
+
+.award-item {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.award-year {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 22px;
+  color: var(--gold);
+  min-width: 100px;
+  padding-top: 4px;
+}
+
+.award-body h3 { font-size: 19px; margin-bottom: 4px; }
+.award-body p  { font-size: 16px; color: var(--muted); margin: 0; }
+
+/* ── Service Page ── */
+.service-section { margin-bottom: 48px; }
+.service-section h3 { margin-bottom: 16px; }
+
+.service-table { width: 100%; border-collapse: collapse; }
+
+.service-table th {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--gold);
+}
+
+.service-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 16px;
+  vertical-align: top;
+}
+
+.service-table tr:hover td { background: var(--glass); }
+
+/* ── Contact Page ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.contact-block .label {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.contact-block p { font-size: 20px; margin: 0; }
+
+.contact-form { margin-top: 48px; }
+.contact-form h3 { margin-bottom: 24px; font-size: 20px; }
+
+.form-group { margin-bottom: 20px; }
+
+.form-group label {
+  display: block;
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  padding: 12px 16px;
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 17px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus { border-color: var(--gold); }
+
+.form-group input:invalid:not(:placeholder-shown) { border-color: #e05; }
+
+.form-group textarea { min-height: 140px; resize: vertical; }
+.form-group select option { background: var(--navy); }
+
+.submit-btn {
+  background: var(--gold);
+  color: var(--navy-dark);
+  border: none;
+  padding: 14px 36px;
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover { background: var(--gold-light); }
+
+.form-success {
+  display: none;
+  background: rgba(245,230,163,0.1);
+  border: 1px solid var(--gold);
+  padding: 20px 24px;
+  margin-top: 20px;
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 14px;
+  color: var(--gold);
+}
+
+.form-error {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 13px;
+  color: #e05;
+  margin-top: 4px;
+  display: none;
+}
+
+/* ── Markets Page ── */
+.market-block { margin-bottom: 16px; }
+
+.market-block-title {
+  font-size: 22px;
+  color: var(--gold-light);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.market-block-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.market-source {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 16px;
+}
+
+/* Quote cards grid */
+.quotes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.quote-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  padding: 20px 16px;
+  transition: border-color 0.2s;
+}
+
+.quote-card:hover { border-color: var(--gold); }
+
+.quote-card.skeleton { opacity: 0.4; }
+
+.quote-ticker {
+  font-family: 'DM Mono', monospace;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.quote-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.quote-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 22px;
+  color: var(--gold-light);
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.quote-change {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+}
+
+/* Spinner (reused from old modal — now on Markets page) */
+.modal-loading {
+  text-align: center;
+  padding: 40px 0;
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.spinner {
+  width: 32px; height: 32px;
+  border: 2px solid var(--border);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Art Market Section ── */
+.art-market-block {
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.auction-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.auction-tab-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 8px 20px;
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.auction-tab-btn:hover { border-color: var(--gold); color: var(--gold); }
+.auction-tab-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(245,230,163,0.08); }
+
+.auction-house-section { display: none; }
+.auction-house-section.active { display: block; }
+
+.auction-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.auction-filter-chip {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 5px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0;
+}
+
+.auction-filter-chip:hover { border-color: var(--gold); color: var(--gold); }
+.auction-filter-chip.active { border-color: var(--gold); color: var(--gold); background: rgba(245,230,163,0.1); }
+
+.auction-iframe-wrap {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  overflow: hidden;
+}
+
+.auction-iframe-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: none;
+}
+
+.auction-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 10px 24px;
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.auction-link-btn:hover {
+  background: rgba(245,230,163,0.1);
+  text-decoration: none;
+}
+
+.auction-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 12px;
+  font-style: normal;
+}
+
+/* ── Visitor Guestbook ── */
+.guestbook-section {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+
+.guestbook-section h3 { margin-bottom: 8px; font-size: 22px; }
+
+.guestbook-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  font-style: italic;
+}
+
+.guestbook-form { margin-bottom: 24px; }
+
+.guestbook-entries { display: flex; flex-direction: column; gap: 0; margin-top: 24px; }
+
+.guestbook-entry {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  animation: fadeUp 0.4s ease both;
+}
+
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.entry-name {
+  font-family: 'Book Antiqua', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.entry-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  flex: 1;
+}
+
+.entry-message {
+  font-size: 16px;
+  color: var(--cream);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.guestbook-loading {
+  color: var(--muted);
+  font-size: 14px;
+  font-style: italic;
+  padding: 16px 0;
+}
+
+/* Delete button (mod mode only) */
+.gb-delete-btn {
+  background: rgba(220,38,38,0.15);
+  border: 1px solid rgba(220,38,38,0.4);
+  color: #f87171;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.gb-delete-btn:hover { background: rgba(220,38,38,0.3); }
+
+/* Mod bar */
+.mod-bar {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mod-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: border-color 0.2s, color 0.2s;
+}
+.mod-toggle-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+.mod-login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mod-login input[type="password"] {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  padding: 8px 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  outline: none;
+  width: 200px;
+  transition: border-color 0.2s;
+}
+.mod-login input[type="password"]:focus { border-color: var(--gold); }
+
+.mod-error {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: #f87171;
+}
+
+.mod-active {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mod-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #4ade80;
+  background: rgba(74,222,128,0.1);
+  border: 1px solid rgba(74,222,128,0.3);
+  padding: 4px 12px;
+}
+
+.mod-exit-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.mod-exit-btn:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 32px;
+  background: rgba(13,36,64,0.97);
+  border-top: 1px solid rgba(184,134,11,0.25);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #a8c4e0;
+  letter-spacing: 2px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  header { padding: 16px 20px; }
+  .page { padding: 40px 20px; }
+  .bio-hero { flex-direction: column; }
+  .bio-photo { width: 160px; height: 160px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .award-item { flex-direction: column; gap: 8px; }
+  .ticker-strip { display: none; }
+}

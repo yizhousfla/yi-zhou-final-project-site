@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yi Zhou, Ph.D. — SFSU Finance</title>
+
+  <!-- FRAMEWORK #1: Tailwind CSS via CDN (Play CDN for development) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config — extend with project design tokens
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy:      '#1a3a5c',
+            'navy-dark': '#0d2440',
+            'navy-mid':  '#1e4570',
+            gold:      '#f5e6a3',
+            cream:     '#eef4fb',
+            muted:     '#a8c4e0',
+          },
+          fontFamily: {
+            antiqua: ["'Book Antiqua'", "'Palatino Linotype'", 'Palatino', 'Georgia', 'serif'],
+            mono:    ["'DM Mono'", 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS (external file — all project-specific styles) -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- BACKEND #1: EmailJS SDK — sends contact form to inbox without a server -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       DATA/API #2: Frankfurter Currency Ticker
+       Live FX rates — no API key required
+  ══════════════════════════════════════ -->
+  <div class="ticker-strip" id="ticker-strip">
+    <span id="ticker-date" style="
+      position: absolute; left: 12px; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(168,196,224,0.5);
+      z-index: 2;
+      pointer-events: none;
+    ">Loading FX rates…</span>
+    <div class="ticker-inner" id="ticker-inner">
+      <!-- Populated by app.js via Frankfurter API -->
+      <span class="ticker-item"><span class="ticker-neutral">Loading currency data…</span></span>
+    </div>
+  </div>
+
+  <!-- SEMANTIC HTML: header & nav -->
+  <header>
+    <div class="site-title">Yi Zhou, Ph.D. &nbsp;///&nbsp; SFSU Finance</div>
+    <nav id="main-nav">
+      <button class="active" data-page="bio">Biography</button>
+      <button data-page="publications">Publications</button>
+      <button data-page="awards">Awards</button>
+      <button data-page="service">Service</button>
+      <button data-page="markets">Markets</button>
+      <button data-page="contact">Contact</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ══════════════════════════════════════
+         BIOGRAPHY PAGE
+    ══════════════════════════════════════ -->
+    <section class="page active" id="page-bio">
+      <div class="bio-hero">
+        <img
+          class="bio-photo"
+          src="https://cob.sfsu.edu/sites/default/files/styles/sf_state_250x250/public/images/Yi-Zhou_headshot.jpg"
+          alt="Professor Yi Zhou headshot"
+          loading="lazy"
+        />
+        <div class="bio-intro">
+          <h1>Yi Zhou</h1>
+          <div class="role">Professor of Finance &nbsp;·&nbsp; Lam Family College of Business</div>
+          <p>
+            Professor Yi Zhou is a Full Professor of Finance at San Francisco State University (SFSU). Her research interests span Empirical Asset Pricing, Derivatives, Credit and Default Risk, Volatility, Art and Finance, Climate and Weather Risk, as well as Artificial Intelligence (AI), including Generative AI and Large Language Models (LLMs).
+          </p>
+          <p>
+            Professor Yi Zhou's publication record comprises eleven (11) published papers, three (3) of which are published in the <em>Journal of Financial Economics</em> (JFE) (2016 and 2017) and the <em>Journal of Financial and Quantitative Analysis</em> (JFQA) (2019), both of which the <em>Financial Times</em> designates as a top-fifty journal used in business school research rankings. Both journals are among two (2) of the top-four (4) journals in finance and on the list of the twenty-four (24) leading journals used for the University of Texas at Dallas top-100 business school research rankings.
+          </p>
+          <p>
+            Her eight (8) other papers are published in the <em>Journal of Banking and Finance</em> (JBF) (2013), <em>Journal of Empirical Finance</em> (JEF) (2015), <em>European Journal of Finance</em> (EJF) (2017), <em>Journal of Financial Markets</em> (JFM) (2022), <em>Journal of Cultural Economics</em> (JCE) (2022), <em>Financial Management</em> (FM) (2023), <em>Review of Quantitative Finance and Accounting</em> (2025) and <em>Global Finance Journal</em> (2026).
+          </p>
+          <p>
+            Professor Yi Zhou's papers have received numerous awards, including the Global Association of Risk Professionals (GARP) Research Award (2009 and 2013), the American Association of Individual Investors Award (2013), and the Center for Hedge Fund Research (CHFR) Award (2009). Her paper, <em>"AI Infrastructure, Firm Value, and Expected Stock Returns,"</em> received the Best Paper Award at the 2nd Modern Finance Conference in Warsaw in September 2025. She also received the Publication Incentive Award of LFCoB for three consecutive years (2020–2021, 2021–2022, and 2022–2023), as well as the Exemplary Research Award for two consecutive years (2016–2017 and 2017–2018). In 2017, she was awarded the highly selective Development of Research and Creativity (DRC) Grant, funded by the California State University (CSU) Chancellor's Office. She was honored with the title of <strong>Lam Larsen Distinguished Research Professor</strong> for the 2025–2027 term.
+          </p>
+          <p>
+            Professor Yi Zhou is in the <strong>top 10%</strong> of authors on the Social Science Research Network (SSRN) by total new downloads and by all-time downloads. Her papers have been on the SSRN's Top 10 download list in various fields.
+          </p>
+        </div>
+      </div>
+
+      <div class="credential-grid" style="margin-top:40px">
+        <div>
+          <h2>Education</h2>
+          <div class="credential-card" style="margin-bottom:12px">
+            <div class="label">PhD, Finance &nbsp;·&nbsp; MA, Statistics &nbsp;·&nbsp; MA, Economics</div>
+            University of California, Los Angeles
+          </div>
+          <div class="credential-card">
+            <div class="label">MA — Astrophysics</div>
+            University of California, Berkeley
+          </div>
+        </div>
+        <div>
+          <h2>Teaching</h2>
+          <div class="credential-card">
+            <div class="label">Courses Taught</div>
+            Investments · Derivatives · Risk Management · Business Finance · Corporate Finance
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         PUBLICATIONS PAGE
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-publications">
+      <h1>Publications</h1>
+      <h2>Peer-Reviewed Research</h2>
+      <ul class="pub-list" id="pub-list"></ul>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         AWARDS PAGE
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-awards">
+      <h1>Awards &amp; Honors</h1>
+      <h2>Recognition across research, teaching, and scholarship</h2>
+      <div class="awards-list" id="awards-list"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SERVICE PAGE
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-service">
+      <h1>Service</h1>
+      <h2>University, College &amp; Professional Contributions</h2>
+
+      <div class="service-section">
+        <h3>Academic Senate &amp; University Committees</h3>
+        <table class="service-table">
+          <thead>
+            <tr>
+              <th>Committee</th>
+              <th>Role</th>
+              <th>Years</th>
+            </tr>
+          </thead>
+          <tbody id="service-table-body"></tbody>
+        </table>
+      </div>
+
+      <div class="service-section">
+        <h3>Current Service</h3>
+        <div class="credential-grid">
+          <div class="credential-card">
+            <div class="label">Current</div>
+            Professional Development Council (P.D.C.)
+          </div>
+          <div class="credential-card">
+            <div class="label">Current</div>
+            Library Advisory Committee (L.A.C.)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         MARKETS PAGE — API #1: Yahoo Finance (stocks)
+                        API #2: Anthropic (auction highlights)
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-markets">
+      <h1>Market Data</h1>
+      <h2>Live financial &amp; art market intelligence</h2>
+
+      <!-- Stock / Index Quotes -->
+      <div class="market-block">
+        <h3 class="market-block-title">Live Market Quotes</h3>
+        <p class="market-block-sub">Major indices &amp; finance-relevant ETFs — refreshed on page load</p>
+        <div class="quotes-grid" id="quotes-grid">
+          <div class="quote-card skeleton"><div class="quote-ticker">—</div><div class="quote-price">Loading…</div></div>
+          <div class="quote-card skeleton"><div class="quote-ticker">—</div><div class="quote-price">Loading…</div></div>
+          <div class="quote-card skeleton"><div class="quote-ticker">—</div><div class="quote-price">Loading…</div></div>
+          <div class="quote-card skeleton"><div class="quote-ticker">—</div><div class="quote-price">Loading…</div></div>
+          <div class="quote-card skeleton"><div class="quote-ticker">—</div><div class="quote-price">Loading…</div></div>
+        </div>
+        <p class="market-source">Data via Yahoo Finance · Delayed 15 min</p>
+      </div>
+
+      <!-- Art Market Section -->
+      <div class="art-market-block">
+        <h3 class="market-block-title">Art Market — Upcoming Auctions</h3>
+        <p class="market-block-sub">Major auction house calendars — Sotheby's &amp; Christie's</p>
+
+        <!-- Tabs: Sotheby's / Christie's -->
+        <div class="auction-tabs">
+          <button class="auction-tab-btn active" onclick="switchAuctionTab('sothebys', this)">Sotheby's</button>
+          <button class="auction-tab-btn" onclick="switchAuctionTab('christies', this)">Christie's</button>
+        </div>
+
+        <!-- Sotheby's -->
+        <div class="auction-house-section active" id="auction-sothebys">
+          <div class="auction-filters" id="sothebys-filters">
+            <span class="auction-filter-chip active" data-key="sothebys-all"     onclick="setAuctionUrl('sothebys', this)">All New York</span>
+            <span class="auction-filter-chip"        data-key="sothebys-contemp" onclick="setAuctionUrl('sothebys', this)">Contemporary Art</span>
+            <span class="auction-filter-chip"        data-key="sothebys-impress" onclick="setAuctionUrl('sothebys', this)">Impressionist &amp; Modern Art</span>
+            <span class="auction-filter-chip"        data-key="sothebys-19c"     onclick="setAuctionUrl('sothebys', this)">19th Century European Art</span>
+            <span class="auction-filter-chip"        data-key="sothebys-omd"     onclick="setAuctionUrl('sothebys', this)">Old Master Drawings</span>
+            <span class="auction-filter-chip"        data-key="sothebys-omp"     onclick="setAuctionUrl('sothebys', this)">Old Master Paintings</span>
+          </div>
+          <a id="sothebys-link" class="auction-link-btn" href="https://www.sothebys.com/en/calendar?s=0&from=&to=&f1=00000162-326e-d29e-a1eb-ffeedb240000&f4=00000164-609b-d1db-a5e6-e9ff01230000&q=" target="_blank" rel="noopener">
+            ↗ &nbsp;Open Sotheby's Calendar
+          </a>
+          <p class="auction-note">Sotheby's · New York · Fine Art Auctions</p>
+        </div>
+
+        <!-- Christie's -->
+        <div class="auction-house-section" id="auction-christies">
+          <div class="auction-filters" id="christies-filters">
+            <span class="auction-filter-chip active" data-key="christies-all"  onclick="setAuctionUrl('christies', this)">All Selected</span>
+            <span class="auction-filter-chip"        data-key="christies-live" onclick="setAuctionUrl('christies', this)">Live</span>
+            <span class="auction-filter-chip"        data-key="christies-online" onclick="setAuctionUrl('christies', this)">Online</span>
+            <span class="auction-filter-chip"        data-key="christies-asian"  onclick="setAuctionUrl('christies', this)">Asian Art</span>
+            <span class="auction-filter-chip"        data-key="christies-fine"   onclick="setAuctionUrl('christies', this)">Fine Art</span>
+            <span class="auction-filter-chip"        data-key="christies-ny"     onclick="setAuctionUrl('christies', this)">New York</span>
+          </div>
+          <a id="christies-link" class="auction-link-btn" href="https://www.christies.com/en/calendar?filters=|event_live|event_115|category_10|category_7|location_43|location_120|" target="_blank" rel="noopener">
+            ↗ &nbsp;Open Christie's Calendar
+          </a>
+          <p class="auction-note">Christie's · New York · Fine Art &amp; Asian Art</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CONTACT PAGE
+    ══════════════════════════════════════ -->
+    <section class="page" id="page-contact">
+      <h1>Contact</h1>
+      <h2>Get in touch</h2>
+
+      <div class="contact-grid">
+        <div class="contact-block">
+          <div class="label">Email</div>
+          <p><a href="mailto:yizhou88@sfsu.edu">yizhou88@sfsu.edu</a></p>
+        </div>
+        <div class="contact-block">
+          <div class="label">Phone</div>
+          <p>(415) 338-2661</p>
+        </div>
+        <div class="contact-block">
+          <div class="label">Office</div>
+          <p>CA 251G, Lam Family College of Business<br />San Francisco State University</p>
+        </div>
+        <div class="contact-block">
+          <div class="label">Office Hours</div>
+          <p>Mon 7:00 – 8:00am (in-person)<br />Wed 7:00 – 8:00am &amp; 12:15 – 1:15pm (online)</p>
+        </div>
+      </div>
+
+      <!-- Contact Form — EmailJS backend -->
+      <div class="contact-form">
+        <h3>Send a Message</h3>
+        <form id="contact-form" novalidate>
+          <div class="form-group">
+            <label for="cf-name">Your Name</label>
+            <input type="text" id="cf-name" name="from_name" placeholder="Full name" required />
+            <div class="form-error" id="err-name">Please enter your name.</div>
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Email Address</label>
+            <input type="email" id="cf-email" name="reply_to" placeholder="you@example.com" required />
+            <div class="form-error" id="err-email">Please enter a valid email.</div>
+          </div>
+          <div class="form-group">
+            <label for="cf-subject">Subject</label>
+            <select id="cf-subject" name="subject">
+              <option value="">— Select a topic —</option>
+              <option>Research Inquiry</option>
+              <option>Course / Teaching</option>
+              <option>Collaboration</option>
+              <option>Media / Press</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" placeholder="Your message…" required></textarea>
+            <div class="form-error" id="err-message">Please enter a message.</div>
+          </div>
+          <!-- Hidden field so EmailJS knows the destination -->
+          <input type="hidden" name="to_email" value="yizhou88@sfsu.edu" />
+          <button type="submit" class="submit-btn" id="contact-submit">Send Message</button>
+        </form>
+        <div class="form-success" id="form-success">
+          ✓ &nbsp; Your message was sent successfully.
+        </div>
+        <div class="form-error" id="form-send-error" style="display:none; margin-top:12px;">
+          ✗ &nbsp; Something went wrong. Please email yizhou88@sfsu.edu directly.
+        </div>
+      </div>
+
+      <!-- ══════════════════════════════════════
+           VISITOR GUESTBOOK — with mod view
+           Entries stored in Firebase Firestore
+           Password-protected delete for owner
+      ══════════════════════════════════════ -->
+      <div class="guestbook-section">
+        <h3>Visitor Comments</h3>
+        <p class="guestbook-subtitle">Leave a note — questions, reflections, or kind words are welcome.</p>
+
+        <!-- Submission form -->
+        <form id="guestbook-form" class="guestbook-form" novalidate>
+          <div class="form-group">
+            <label for="gb-name">Your Name</label>
+            <input type="text" id="gb-name" placeholder="Name or affiliation" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="gb-message">Your Comment</label>
+            <textarea id="gb-message" placeholder="Write your comment here…" required style="min-height:100px;"></textarea>
+          </div>
+          <div class="form-error" id="gb-error" style="display:none;"></div>
+          <button type="submit" class="submit-btn">Post Comment</button>
+        </form>
+
+        <!-- Mod controls -->
+        <div class="mod-bar">
+          <button class="mod-toggle-btn" id="mod-toggle-btn" onclick="toggleModLogin()">⚙ Manage Comments</button>
+          <div class="mod-login" id="mod-login" style="display:none;">
+            <input type="password" id="mod-password" placeholder="Enter mod password" />
+            <button class="submit-btn" style="padding:8px 20px;font-size:12px;" onclick="enterModMode()">Unlock</button>
+            <span class="mod-error" id="mod-error" style="display:none;">Incorrect password.</span>
+          </div>
+          <div class="mod-active" id="mod-active" style="display:none;">
+            <span class="mod-badge">✓ Mod Mode Active</span>
+            <button class="mod-exit-btn" onclick="exitModMode()">Exit</button>
+          </div>
+        </div>
+
+        <!-- Entries list -->
+        <div class="guestbook-entries" id="guestbook-entries">
+          <p class="guestbook-loading">No comments yet — be the first!</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2026 &nbsp;Yi Zhou, Ph.D. &nbsp;·&nbsp; Lam Family College of Business &nbsp;·&nbsp; San Francisco State University
+  </footer>
+
+  <!-- BACKEND #2: Firebase Firestore — initializes db, exposes window._firebase -->
+  <script type="module" src="firebase-init.js"></script>
+  <!-- Main app logic — plain script so onclick= attributes work globally -->
+  <script src="app.js" defer></script>
+</body>
+</html>
