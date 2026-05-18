@@ -410,11 +410,11 @@ async function loadCurrencyTicker() {
     // Graceful fallback — show static rates if API unreachable
     const dateBadge = document.getElementById('ticker-date');
     if (dateBadge) dateBadge.textContent = 'FX rates · latest available';
-
+    
     const staticRates = [
-      ['EUR','0.9201'],['GBP','0.7734'],['JPY','142.50'],
-      ['CNY','7.2318'],['CHF','0.8821'],['CAD','1.3845'],
-      ['AUD','1.5234'],['HKD','7.7812']
+      ['EUR','0.8581'],['GBP','0.7447'],['JPY','158.81'],
+      ['CNY','6.8003'],['CHF','0.7846'],['CAD','1.3739'],
+      ['AUD','1.3955'],['HKD','7.8305']
     ];
     const items = staticRates.map(([code, rate]) => `
       <span class="ticker-item">
