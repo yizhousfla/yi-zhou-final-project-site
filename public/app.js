@@ -374,18 +374,21 @@ async function loadCurrencyTicker() {
   const tickerInner = document.getElementById('ticker-inner');
   if (!tickerInner) return;
 
+  // Currency pairs relevant to a finance academic site
   const currencies = ['EUR', 'GBP', 'JPY', 'CNY', 'CHF', 'CAD', 'AUD', 'HKD'];
 
   try {
-    // ✅ CORS-friendly, no API key required
-    const response = await fetch('https://open.er-api.com/v6/latest/USD');
+    // Frankfurter API: https://api.frankfurter.app/latest?from=USD
+    const response = await fetch(
+      `https://api.frankfurter.app/latest?from=USD&to=${currencies.join(',')}`
+    );
     if (!response.ok) throw new Error('Ticker fetch failed');
     const data = await response.json();
-    const rates = data.rates;
-    const dateStr = data.time_last_update_utc
-      ? new Date(data.time_last_update_utc).toISOString().slice(0, 10)
-      : 'latest';
 
+    const rates = data.rates;
+    const dateStr = data.date;
+
+    // Build ticker items — duplicate for seamless loop
     const items = currencies.map(function(code) {
       const rate = rates[code];
       if (!rate) return '';
@@ -396,8 +399,10 @@ async function loadCurrencyTicker() {
         </span>`;
     }).join('');
 
+    // Duplicate for seamless scroll
     tickerInner.innerHTML = items + items;
 
+    // Show date badge
     const dateBadge = document.getElementById('ticker-date');
     if (dateBadge) dateBadge.textContent = `FX rates · ${dateStr}`;
 
